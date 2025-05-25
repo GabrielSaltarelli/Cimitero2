@@ -1,36 +1,121 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cimitero Vecchio Valenzano - Ricerca Posizione Rapida</title>
   <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
   <style>
-    :root { --header-bg: #2c2f33; --accent: #28a745; --card-shadow: rgba(0, 0, 0, 0.1); --transition-duration: 0.3s; }
-    body { font-family: 'Nunito', sans-serif; display: flex; flex-direction: column; min-height: 100vh; background: #f8f9fa; transition: background var(--transition-duration); }
-    .dark-mode body { background: #121212; color: #ddd; }
-    .header-band { background: var(--header-bg); color: #fff; padding: 1.5rem 0; box-shadow: 0 2px 5px var(--card-shadow); position: sticky; top: 0; z-index: 1000; }
-    .header-content { position: relative; text-align: center; }
-    .header-content h1 { font-size: 2.2rem; font-weight: 700; margin: 0; }
-    .header-content p { font-size: 1.1rem; opacity: 0.8; margin: 0; }
-    .toggle-dark { cursor: pointer; font-size: 1.2rem; position: absolute; top: 0.5rem; right: 1rem; transition: transform var(--transition-duration); }
-    .toggle-dark:hover { transform: rotate(20deg); }
-    .search-input { margin: 2rem 0; }
-    .input-group .form-control { transition: box-shadow var(--transition-duration); }
-    .input-group .form-control:focus { box-shadow: 0 0 8px var(--accent); }
-    .list-group-item { cursor: pointer; transition: background var(--transition-duration), color var(--transition-duration), padding-left var(--transition-duration); }
-    .list-group-item:hover { background: var(--accent); color: #fff; padding-left: 1.5rem; }
-    .card-custom { border-radius: 12px; box-shadow: 0 4px 10px var(--card-shadow); transition: transform var(--transition-duration); margin-bottom: 1rem; }
-    .card-custom:hover { transform: translateY(-5px); }
-    .footer-band { background: #000; color: #fff; text-align: center; padding: 0.5rem 0; margin-top: auto; }
-    .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--accent); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: auto; display: none; }
-    @keyframes spin { 100% { transform: rotate(360deg);} }
-    #suggestions { max-height: 200px; overflow-y: auto; }
+    :root {
+      --header-bg: #2c2f33;
+      --accent: #28a745;
+      --card-shadow: rgba(0, 0, 0, 0.1);
+      --transition-duration: 0.3s;
+    }
+    body {
+      font-family: 'Nunito', sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background: #f8f9fa;
+      transition: background var(--transition-duration);
+    }
+    .dark-mode body {
+      background: #121212;
+      color: #ddd;
+    }
+    .header-band {
+      background: var(--header-bg);
+      color: #fff;
+      padding: 1.5rem 0;
+      box-shadow: 0 2px 5px var(--card-shadow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .header-content {
+      position: relative;
+      text-align: center;
+    }
+    .header-content h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .header-content p {
+      font-size: 1.1rem;
+      opacity: 0.8;
+      margin: 0;
+    }
+    .toggle-dark {
+      cursor: pointer;
+      font-size: 1.2rem;
+      position: absolute;
+      top: 0.5rem;
+      right: 1rem;
+      transition: transform var(--transition-duration);
+    }
+    .toggle-dark:hover {
+      transform: rotate(20deg);
+    }
+    .search-input {
+      margin: 2rem 0;
+    }
+    .input-group .form-control {
+      transition: box-shadow var(--transition-duration);
+    }
+    .input-group .form-control:focus {
+      box-shadow: 0 0 8px var(--accent);
+    }
+    .list-group-item {
+      cursor: pointer;
+      transition: background var(--transition-duration), color var(--transition-duration), padding-left var(--transition-duration);
+    }
+    .list-group-item:hover {
+      background: var(--accent);
+      color: #fff;
+      padding-left: 1.5rem;
+    }
+    .card-custom {
+      border-radius: 12px;
+      box-shadow: 0 4px 10px var(--card-shadow);
+      transition: transform var(--transition-duration);
+      margin-bottom: 1rem;
+    }
+    .card-custom:hover {
+      transform: translateY(-5px);
+    }
+    .footer-band {
+      background: #000;
+      color: #fff;
+      text-align: center;
+      padding: 0.5rem 0;
+      margin-top: auto;
+    }
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid var(--accent);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: auto;
+      display: none;
+    }
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    #suggestions {
+      max-height: 200px;
+      overflow-y: auto;
+    }
   </style>
 </head>
 <body>
@@ -42,6 +127,9 @@
         <a href="lista.html" class="btn btn-outline-light btn-sm" title="Elenco completo">
           <i class="bi bi-list-ul"></i>
         </a>
+        <button class="btn btn-outline-light btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#loginModal" title="Gestione Record">
+          <i class="bi bi-person-lock"></i>
+        </button>
       </div>
       <!-- Centered Title -->
       <div class="text-center">
@@ -62,7 +150,7 @@
       <div class="col-md-8">
         <div class="input-group shadow-sm">
           <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
-          <input id="search" type="text" class="form-control" placeholder="Cerca Nome e Cognome...">
+          <input id="search" type="text" class="form-control" placeholder="Cerca Nome e Cognome..." />
           <button class="btn btn-outline-secondary" id="clearBtn" title="Pulisci"><i class="bi bi-x-circle-fill"></i></button>
         </div>
         <div id="loader" class="loader mt-2"></div>
@@ -71,19 +159,30 @@
     </div>
 
     <!-- Detail Card -->
-    <div id="detail-card" class="row justify-content-center mb-4">
+    <div id="detail-card" class="row justify-content-center mb-4" style="display:none;">
       <div class="col-md-6">
         <div class="card bg-light card-custom text-center">
           <div class="card-body">
             <h4 id="det-name" class="card-title text-primary"></h4>
-            <p id="det-birth" class="mb-1"><i class="bi bi-calendar-plus"></i><br><span></span></p>
-            <p id="det-death" class="mb-3"><i class="bi bi-calendar-minus"></i><br><span></span></p>
-            <button id="maps-btn" class="btn btn-success mb-3"><i class="bi bi-geo-alt-fill"></i><br>Apri in Google Maps</button>
+            <p id="det-birth" class="mb-1">
+              <i class="bi bi-calendar-plus"></i><br />
+              <span></span>
+            </p>
+            <p id="det-death" class="mb-3">
+              <i class="bi bi-calendar-minus"></i><br />
+              <span></span>
+            </p>
+            <button id="maps-btn" class="btn btn-success mb-3">
+              <i class="bi bi-geo-alt-fill"></i><br />
+              Apri in Google Maps
+            </button>
             <div id="photo-container" class="text-center">
-              <img id="det-photo" src="" alt="Foto" class="img-fluid rounded mb-2 d-none mx-auto">
+              <img id="det-photo" src="" alt="Foto" class="img-fluid rounded mb-2 d-none mx-auto" />
               <p id="no-photo" class="text-muted">Foto non disponibile.</p>
             </div>
-            <div class="text-muted small mt-2">Nota: Le coordinate mostrate sono generali. Per posizione precisa, aggiornare i dati.</div>
+            <div class="text-muted small mt-2">
+              Nota: Le coordinate mostrate sono generali. Per posizione precisa, aggiornare i dati.
+            </div>
           </div>
         </div>
       </div>
@@ -97,23 +196,51 @@
     </div>
   </footer>
 
-  <!-- Bootstrap JS & Script -->
+  <!-- Login Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Accesso Amministratore</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" required />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" required />
+            </div>
+            <button type="submit" class="btn btn-success w-100">Accedi</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+    // Dark mode toggle
     const toggle = document.getElementById('darkToggle');
     toggle.addEventListener('click', () => {
       document.documentElement.classList.toggle('dark-mode');
-      const icon = toggle.classList.toggle('bi-sun-fill') ? 'bi-sun-fill' : 'bi-moon-stars-fill';
-      toggle.className = 'bi ' + icon + ' toggle-dark';
+      const isSun = toggle.classList.toggle('bi-sun-fill');
+      toggle.className = 'bi ' + (isSun ? 'bi-sun-fill' : 'bi-moon-stars-fill') + ' toggle-dark';
     });
 
+    // Clear button functionality
     document.getElementById('clearBtn').addEventListener('click', () => {
       document.getElementById('search').value = '';
       document.getElementById('suggestions').innerHTML = '';
       document.getElementById('detail-card').style.display = 'none';
     });
 
-    const records = [
+    // Dati statici e locali
+    const staticRecords = [
       { name: 'Ida Mattina', birth: '06-01-1919', death: '19-04-2001', coords: '41.029,16.857', photo: '' },
       { name: 'Carmela Marzano', birth: '12-05-1925', death: '03-11-2005', coords: '41.030,16.858', photo: '' },
       { name: 'Tommaso Agostino', birth: '20-02-1930', death: '15-07-1995', coords: '41.031,16.859', photo: '' },
@@ -121,12 +248,15 @@
       { name: 'Maria Rossi', birth: '10-03-1955', death: '14-09-2015', coords: '41.033,16.861', photo: '' },
       { name: 'Maria Verdi', birth: '22-07-1960', death: '30-01-2020', coords: '41.034,16.862', photo: '' },
       { name: 'Marco Martini', birth: '05-11-1970', death: '12-06-2022', coords: '41.035,16.863', photo: '' },
-      { name: 'Lucia Marini', birth: '18-04-1938', death: '27-02-2008', coords: '41.036,16.864', photo: '' }
+      { name: 'Lucia Marini', birth: '18-04-1938', death: '27-02-2008', coords: '41.036,16.864', photo: '' },
     ];
+
+    const storedRecords = JSON.parse(localStorage.getItem('cemeteryRecords') || '[]');
+    const records = [...staticRecords, ...storedRecords];
 
     const searchInput = document.getElementById('search');
     const suggestions = document.getElementById('suggestions');
-    const detailCard  = document.getElementById('detail-card');
+    const detailCard = document.getElementById('detail-card');
     const loader = document.getElementById('loader');
     let debounceTimeout;
 
@@ -139,12 +269,21 @@
       debounceTimeout = setTimeout(() => {
         loader.style.display = 'none';
         const q = searchInput.value.toLowerCase();
-        records.filter(r => r.name.toLowerCase().split(' ').some(part => part.startsWith(q)))
-               .forEach(r => {
+        const matches = records.filter(r =>
+          r.name.toLowerCase().split(' ').some(part => part.startsWith(q))
+        );
+        matches.forEach(r => {
           const li = document.createElement('li');
           li.textContent = r.name;
           li.className = 'list-group-item';
+          li.tabIndex = 0;
           li.onclick = () => showDetail(r);
+          li.onkeydown = e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              showDetail(r);
+            }
+          };
           suggestions.appendChild(li);
         });
       }, 300);
@@ -154,15 +293,37 @@
       document.getElementById('det-name').textContent = r.name;
       document.querySelector('#det-birth span').textContent = r.birth;
       document.querySelector('#det-death span').textContent = r.death;
-      document.getElementById('maps-btn').onclick = () => window.open(`https://www.google.com/maps?q=${r.coords}`, '_blank');
-      const img = document.getElementById('det-photo');
+      document.getElementById('maps-btn').onclick = () =>
+        window.open(`https://maps.google.com/?q=${encodeURIComponent(r.coords)}`, '_blank');
+      const photo = document.getElementById('det-photo');
       const noPhoto = document.getElementById('no-photo');
-      if (r.photo) { img.src = r.photo; img.classList.remove('d-none'); noPhoto.classList.add('d-none'); }
-      else { img.classList.add('d-none'); noPhoto.classList.remove('d-none'); }
-      detailCard.style.display = 'block';
-      // Nascondi i suggerimenti dopo la selezione
+      if (r.photo) {
+        photo.src = r.photo;
+        photo.classList.remove('d-none');
+        noPhoto.style.display = 'none';
+      } else {
+        photo.classList.add('d-none');
+        noPhoto.style.display = 'block';
+      }
+      detailCard.style.display = 'flex';
       suggestions.innerHTML = '';
+      searchInput.value = r.name;
     }
+
+    // Login form handler
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+     if (username === 'admin' && password === '12345') {
+  // Redirect alla pagina Manage_Page.html
+  window.location.href = 'Manage_Page.html';
+} else {
+  alert('Username o password errati.');
+}
+
+    });
   </script>
 </body>
 </html>
